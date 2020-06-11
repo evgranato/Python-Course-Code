@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="UTF-8" />
+
+<link href="http://FileBound.tasus.com/Eform/Expense/css/style_fbbeta.css" rel="stylesheet" type="text/css" media="screen" />
+<title>Purchase Request</title>
+
+</head>
+<body bgcolor="darkgray"; onload="sumTable();">
+<form name="expense" id="caf" method="post" Action="$$URL$$">
+
+<div id="container">
+	<div id="logobar">
+	</div> <!-- Close logobar div -->
+
+	<div id="container-inner">
+
+<script type="text/javascript">
+	function sumTable() {
+        var total = 0.0;
+        var fail = false;
+        var list = getElementsByClassName(document, 'expExtended');
+        for (var i = 0; i < list.length; i++) {
+            var val = parseFloat(list[i].innerHTML);
+            if (!isNaN(val)) {
+                total += val;
+            } else {
+                fail = true;
+            }
+        }
+
+        var AmountWithCommas = total.toLocaleString();
+        var arParts = String(AmountWithCommas).split('.');
+        var decPart = (arParts.length > 1 ? arParts[1] : '');
+        roundPart = (decPart + '00').substr(2, 1);
+		if (roundPart > 4) { total = total + 0.01; }
+        arParts = total.toLocaleString().split('.');
+        decPart = (arParts.length > 1 ? arParts[1] : '');
+		decPart = (decPart + '00').substr(0, 2);
+        if (fail) {
+			document.getElementById('sumTarget').value = 'ERROR';
+        } else {
+            document.getElementById('sumTarget').value = '$ ' + arParts[0] + '.' + decPart;
+            document.getElementById('sumNumeric').value = total.toString().split('.')[0] + '.' + decPart;
+        }
+	}
+
+    function getElementsByClassName(node, classname) {
+        var a = [];
+        var re = new RegExp('(^| )' + classname + '( |$)');
+        var els = node.getElementsByTagName("*");
+        for (var i = 0, j = els.length; i < j; i++)
+            if (re.test(els[i].className)) a.push(els[i]);
+        return a;
+    }
+
+</script>
+
+<!-- Header -->
+
+		<div id="header">
+			<div id="header-inner">
+				<h1>Purchase Request</h1>
+			</div> <!-- Close header-inner div -->
+		</div> <!-- Close header div -->
+
+<!-- Content Area -->
+
+		<div id="content" class="clear">
+			<div id="content-inner">
+				<div id="description">
+				<p>Please complete the following Purchase Request information:</p>
+
+				</div> <!-- Close description div -->
+
+				<div id="clientinfo" class="infobox">
+					<h3 class="title gradient">Vendor Information</h3>
+						<div id="boxdata">
+							<table id="clientinfotable" style="width:800px"> <!-- style="width: 100%" -->
+								<tr>
+									<th style="text-align: left;width:200px;">Vendor Name:</th>
+									<td style="width:600px;"><input type="text" name="vendname" value="$$F12$$" size="45"/></td>
+								</tr>
+								<tr>
+									<th style="text-align: left;">Department Cost Center:</th> <!--  style="width: 170px;" -->
+									<td><input type="text" name="expCostCenter" value="$$F9$$" size="45"/></td>
+								</tr>
+
+
+<!--								<td>Department Cost Center:</td>
+									<td>
+										<select name="expCostCenter" value="$$F9$$">
+											<option value="" $$expCostCenter$$>Please Select a Category</option>
+											<option value="0001 - Special" $$expCostCenter$$>0001 - Special</option>
+											<option value="100 - Quality" $$expCostCenter$$>100 - Quality</option>
+											<option value="200 - Tooling/Automation" $$expCostCenter$$>200 - Tooling/Automation</option>
+											<option value="300 - Inj Molding" $$expCostCenter$$>300 - Inj Molding</option>
+											<option value="400 - Maintenance" $$expCostCenter$$>400 - Maintenance</option>
+											<option value="900 - Sales" $$expCostCenter$$>900 - Sales</option>
+											<option value="1000 - Admin" $$expCostCenter$$>1000 - Admin</option>
+											<option value="1100 - Engineering" $$expCostCenter$$>1100 - Engineering</option>
+											<option value="1600 - Purchasing" $$expCostCenter$$>1600 - Purchasing</option>
+											<option value="1700 - Warehouse" $$expCostCenter$$>1700 - Warehouse</option>
+                                            <option value="1900 - Human Resources" $$expCostCenter$$>1900 - Human Resources</option>
+											<option value="2300 - Information Technology" $$expCostCenter$$ >2300 - Information Technology</option>
+											<option value="2400 - Blow Molding," $$expCostCenter$$ >2400 - Blow Molding,</option>
+											<option value="2500 - Extrusion Molding" $$expCostCenter$$ >2500 - Extrusion Molding</option>
+											<option value="2700 - Material Handling" $$expCostCenter$$ >2700 - Material Handling</option>
+										</select>
+-->
+
+
+									</td>
+
+								</tr>
+								<tr>
+									<th style="text-align: left;">Submit Date:</th>
+									<td><input type="text" name="prsubdate" value="$$F8$$" /></td>
+								</tr><tr>
+									<th style="text-align: left;">Requestor:</th>
+									<td><input type="text" name="whoAsked" value="$$F2$$" /></td>
+								</tr>
+<!--
+								<tr>
+									<td style="width: 120px;">Expense Account:</td>
+									<td colspan="3"><input type="text" name="expacct" value="$$F11$$" /></td>
+								</tr>
+-->
+
+							</table>
+						</div> <!-- Close boxdata -->
+				</div> <!-- Close clientinfo div -->
+
+				<div id="expensebox" class="infobox">
+					<h3 class="title gradient">Item(s) Detail</h3>
+					<div id="addbtn" class="addbutton">
+						<a href="$$URLDETAIL$$">Add Item</a>
+					</div> <!-- Close additem div -->
+
+					<table id="expenses" width="100%">
+						<tr>
+							<th class="edit"></th>
+							<th class="Delete"></th>
+                            <th class="date">Date Required</th>
+							<th class="item">Item Code</th>
+							<th class="edit">U/M</th>
+							<th class="description">Description</th>
+							<th class="edit">QTY</th>
+							<th class="amt">Unit Cost</th>
+							<th class="amt">Extended</th>
+							<th class="edit">Exp Code</th>
+							<th class="expCostCenter">Dept Cost Center </th>
+						</tr>
+
+					<fbdetail>
+
+						<tr>
+                            <td><a href="$$URLDETAIL$$" class="additem" style="text-align: center; padding-left: 0px;">edit</a></td> <!-- edit $$rownumber$$ -->
+							<td><a href="$$URLDELETE$$" class="additem" style="text-align: center; padding-left: 0px;">del</a></td>
+							<td class="center">$$expRequiredDate$$</td>
+                            <td class="center">$$expItem$$</td>
+                            <td class="center">$$expUM$$</td>
+                            <td>$$expDescription$$</td>
+                            <td class="center">$$expQuantity$$</td>
+                            <td class="center">$$expUnitPrice$$</td>
+                            <td class="expExtended">$$expExtended$$</td>
+						    <td class="center">$$expGLAccount$$</td>
+						    <td class="center">$$F9$$ </td>
+					    </tr>
+
+					</fbdetail>
+					</table>
+					<p class="note">Select the number in the Edit column to edit the line item entry.</p>
+
+
+					<table id="generalinfotable" style="width: 100%">
+						<tr>
+							<td><b>Total Requisition Value: </b></td>
+							<td><input type="text" id="sumTarget" value="" style="font-weight:bold;font-size:16pt"/>
+							    <input type="hidden" id="sumNumeric" name="sumNumeric" value="$$F7$$"/></td>
+ 						</tr>
+						<tr>
+							<td class="vertcenter" style="width: 120px;">Notes/Description:</td>
+							<td><textarea name="notes" style="width: 96%; height: 100px">$$notes$$</textarea></td>
+						</tr>
+					</table>
+
+				</div> <!-- Close clientinfo -->
+
+				<table>
+					    <tr>
+							<td>TTF-080 Purchase Order Request Form</td>
+						</tr>
+						<tr>
+							<td>Rev. C</td>
+						</tr>
+				</table>
+
+
+				<div style="width:100%;text-align:center"  >
+					<input id="Submit" type="submit" value="Save Form" class="button" />
+				</div>
+
+			</div> <!-- Close content-inner div -->
+		</div> <!-- Close content div -->
+
+
+
+	</div> <!-- Close container-inner div -->
+</div> <!-- Close container div -->
+</form>
+</body>
+</html>
