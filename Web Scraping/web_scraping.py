@@ -231,42 +231,47 @@
 
 # ON YOUR OWN, CREATE A WEB CRAWLER THAT GOES TO THE NEXT PAGE UNTIL IT RUNS OUT:
 
-import requests
-from bs4 import BeautifulSoup
-from csv import writer
+# import requests
+# from bs4 import BeautifulSoup
+# from csv import writer
 
-response = requests.get("https://www.rithmschool.com/blog")
-soup = BeautifulSoup(response.text, "html.parser")
-articles = soup.find_all("article")
+# response = requests.get("https://www.rithmschool.com/blog")
+# soup = BeautifulSoup(response.text, "html.parser")
+# articles = soup.find_all("article")
 
-with open("blog_data.csv", "w") as file:
-    csv_writer = writer(file)
-    csv_writer.writerow(["title", "link", "date"])
+# with open("blog_data.csv", "w") as file:
+#     csv_writer = writer(file)
+#     csv_writer.writerow(["title", "link", "date"])
 
-    for article in articles:
-        a_tag = article.find("a")
-        title = a_tag.get_text()
-        url = "https://www.rithmschool.com" + a_tag["href"]
-        date = article.find("time")["datetime"]
-        csv_writer.writerow([title,url,date])
+#     for article in articles:
+#         a_tag = article.find("a")
+#         title = a_tag.get_text()
+#         url = "https://www.rithmschool.com" + a_tag["href"]
+#         date = article.find("time")["datetime"]
+#         csv_writer.writerow([title,url,date])
 
-    pages = soup.find_all(class_="pagination")
-    count = 1
-    while articles:
-        for nav in pages:
-            next_page = nav.find("a")["href"][:11:]
-            full_next_url = "https://www.rithmschool.com" + next_page + str(count)
-            count += 1
+#     pages = soup.find_all(class_="pagination")
+#     count = 1
+#     while articles:
+#         for nav in pages:
+#             next_page = nav.find("a")["href"][:11:]
+#             full_next_url = "https://www.rithmschool.com" + next_page + str(count)
+#             count += 1
 
 
-            response = requests.get(str(full_next_url))
-            soup = BeautifulSoup(response.text, "html.parser")
-            articles = soup.find_all("article")
+#             response = requests.get(str(full_next_url))
+#             soup = BeautifulSoup(response.text, "html.parser")
+#             articles = soup.find_all("article")
 
-            for article in articles:
-                a_tag = article.find("a")
-                title = a_tag.get_text()
-                url = "https://www.rithmschool.com" + a_tag["href"]
-                date = article.find("time")["datetime"]
-                csv_writer.writerow([title, url, date])
-    print("Finished")
+#             for article in articles:
+#                 a_tag = article.find("a")
+#                 title = a_tag.get_text()
+#                 url = "https://www.rithmschool.com" + a_tag["href"]
+#                 date = article.find("time")["datetime"]
+#                 csv_writer.writerow([title, url, date])
+#     print("Finished")
+
+nums = [1,2,3,4]
+
+for num in nums:
+    print(num)
