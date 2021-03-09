@@ -166,3 +166,33 @@
 #     return final
 # print(calculate(make_float=True, operation="divide", first=3.5, second=5))
 # print(calculate(make_float=False, operation='add', message='You just added', first=2, second=4))
+
+# output = []
+
+# def hello (array):
+#     if type(array) == list:
+#         for ar in array:
+#             output.append(ar)
+#     else:
+#         print("not an array")
+#     # str1 = ''.join(str(e) for e in output)
+#     # print(str1)
+#     return ''.join(str(e) for e in output)
+
+# str1 = hello(["t", "e", "s", "t", "y"])
+# # hello("test")
+# print(output)
+# print(str1)
+
+def math(num1, m1, num2):
+    if (m1 == "+"):
+        answer = num1 + num2
+    elif (m1 == "-"):
+        answer = num1 - num2
+    elif (m1 == "*"):
+        answer = num1 * num2
+    elif (m1 == "/"):
+        answer = num1 / num2
+    return answer
+
+print(math(2, "*", 2))
