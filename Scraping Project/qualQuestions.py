@@ -28,7 +28,7 @@ def scrape_quotes():
             })
     return real_all_info
 def write_quotes(questions):
-    with open("qs.csv", "w") as file:
+    with open("code/Python Testing/qs2.csv", "w") as file:
         headers = ["questions"]
         csv_writer = DictWriter(file, fieldnames=headers)
         csv_writer.writeheader()
